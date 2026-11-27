@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_df10e6c91d80a097ae982013bc03bb56 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    <div style="position:fixed;bottom:48px;left:10px;max-width:60%;z-index:9999;background:#fff;padding:6px 10px;border-radius:4px;font:13px sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.3)">ЛР8 · Токарик Сергій · Івано-Франківськ, Україна · найкращий 20.20 км проти 20.29 км у ЛР5 · ПРЯМІ ВІДРІЗКИ, не вулиці</div>
+    
+            <div class="folium-map" id="map_df10e6c91d80a097ae982013bc03bb56" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_df10e6c91d80a097ae982013bc03bb56 = L.map(
+                "map_df10e6c91d80a097ae982013bc03bb56",
+                {
+                    center: [48.92020836129032, 24.712854976679754],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_df10e6c91d80a097ae982013bc03bb56);
+
+            
+
+        
+    
+            var tile_layer_9c5d349e80e416f2808bb97c305ef968 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 16,
+  "maxNativeZoom": 16,
+  "noWrap": false,
+  "attribution": "Tiles \u0026copy; Esri \u0026mdash; Esri, DeLorme, NAVTEQ",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_9c5d349e80e416f2808bb97c305ef968.addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var feature_group_1845c579de5744040d3d9f942b8b670d = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_e4dd8b73a308f503f63999525d851191 = L.polyline(
+                [[48.9254035, 24.7238028], [48.927210900000006, 24.722572038802227], [48.9287851, 24.723429400000008], [48.930422, 24.72652116368613], [48.928336, 24.7183089], [48.92522525, 24.71708840751262], [48.9255152, 24.7190915], [48.924425299999996, 24.714955143636363], [48.9243842, 24.713532261623342], [48.9237568, 24.7091282], [48.9230813, 24.7087003], [48.9226307, 24.707142396560847], [48.9224295, 24.70855894496515], [48.92204575, 24.707596976859207], [48.922760600000004, 24.710386782734794], [48.9225472, 24.711958145308923], [48.9219341, 24.711929999957647], [48.92045915, 24.71140497158828], [48.920613349999996, 24.710417220387374], [48.92146435, 24.709228498798232], [48.9210229, 24.708368841645978], [48.9209238, 24.7064285], [48.9196846, 24.6898171], [48.9105664, 24.694355795742858], [48.9099957, 24.7038129], [48.9104248, 24.7066861], [48.9101514, 24.7079084], [48.8878879, 24.7106709], [48.918237149999996, 24.717949795571524], [48.9168679, 24.732904773269105], [48.9172664, 24.733847118421604], [48.9254035, 24.7238028]],
+                {"bubblingMouseEvents": true, "color": "#6b6b6b", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#6b6b6b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 6}
+            ).addTo(feature_group_1845c579de5744040d3d9f942b8b670d);
+        
+    
+            poly_line_e4dd8b73a308f503f63999525d851191.bindTooltip(
+                `<div>
+                     ЛР5: 2-opt — 20.29 км
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_1845c579de5744040d3d9f942b8b670d.addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var feature_group_1bb5cd154f26102334f8acafcd26b388 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_b00db882db2aac99e4cf5689c780119a = L.polyline(
+                [[48.9254035, 24.7238028], [48.9172664, 24.733847118421604], [48.9168679, 24.732904773269105], [48.918237149999996, 24.717949795571524], [48.8878879, 24.7106709], [48.9101514, 24.7079084], [48.9104248, 24.7066861], [48.9099957, 24.7038129], [48.9105664, 24.694355795742858], [48.9196846, 24.6898171], [48.9209238, 24.7064285], [48.9210229, 24.708368841645978], [48.920613349999996, 24.710417220387374], [48.92045915, 24.71140497158828], [48.9219341, 24.711929999957647], [48.9225472, 24.711958145308923], [48.922760600000004, 24.710386782734794], [48.92146435, 24.709228498798232], [48.92204575, 24.707596976859207], [48.9224295, 24.70855894496515], [48.9226307, 24.707142396560847], [48.9230813, 24.7087003], [48.9237568, 24.7091282], [48.9243842, 24.713532261623342], [48.924425299999996, 24.714955143636363], [48.92522525, 24.71708840751262], [48.928336, 24.7183089], [48.930422, 24.72652116368613], [48.9287851, 24.723429400000008], [48.927210900000006, 24.722572038802227], [48.9255152, 24.7190915], [48.9254035, 24.7238028]],
+                {"bubblingMouseEvents": true, "color": "#2a78d6", "dashArray": "8", "dashOffset": null, "fill": false, "fillColor": "#2a78d6", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_1bb5cd154f26102334f8acafcd26b388);
+        
+    
+            poly_line_b00db882db2aac99e4cf5689c780119a.bindTooltip(
+                `<div>
+                     ГА: найкращий із 10 — 20.33 км
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var feature_group_8e9221b422b66fa0946ce268a85f72f2 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_3fa30863d205413fee754705ac8302d5 = L.polyline(
+                [[48.9254035, 24.7238028], [48.927210900000006, 24.722572038802227], [48.9287851, 24.723429400000008], [48.930422, 24.72652116368613], [48.928336, 24.7183089], [48.92522525, 24.71708840751262], [48.9255152, 24.7190915], [48.924425299999996, 24.714955143636363], [48.9243842, 24.713532261623342], [48.9225472, 24.711958145308923], [48.9219341, 24.711929999957647], [48.922760600000004, 24.710386782734794], [48.92146435, 24.709228498798232], [48.9224295, 24.70855894496515], [48.92204575, 24.707596976859207], [48.9226307, 24.707142396560847], [48.9230813, 24.7087003], [48.9237568, 24.7091282], [48.920613349999996, 24.710417220387374], [48.92045915, 24.71140497158828], [48.9210229, 24.708368841645978], [48.9209238, 24.7064285], [48.9196846, 24.6898171], [48.9105664, 24.694355795742858], [48.9104248, 24.7066861], [48.9101514, 24.7079084], [48.9099957, 24.7038129], [48.8878879, 24.7106709], [48.918237149999996, 24.717949795571524], [48.9168679, 24.732904773269105], [48.9172664, 24.733847118421604], [48.9254035, 24.7238028]],
+                {"bubblingMouseEvents": true, "color": "#eb6834", "dashArray": "8", "dashOffset": null, "fill": false, "fillColor": "#eb6834", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_8e9221b422b66fa0946ce268a85f72f2);
+        
+    
+            poly_line_3fa30863d205413fee754705ac8302d5.bindTooltip(
+                `<div>
+                     мурахи: найкращий із 10 — 20.62 км
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var feature_group_025f67889f0a9d809fb6823a59734ba1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_737a8cbdaeefc70eb668857ac62b81e0 = L.polyline(
+                [[48.9254035, 24.7238028], [48.927210900000006, 24.722572038802227], [48.9287851, 24.723429400000008], [48.930422, 24.72652116368613], [48.928336, 24.7183089], [48.92522525, 24.71708840751262], [48.9255152, 24.7190915], [48.924425299999996, 24.714955143636363], [48.9243842, 24.713532261623342], [48.9237568, 24.7091282], [48.9230813, 24.7087003], [48.9226307, 24.707142396560847], [48.9224295, 24.70855894496515], [48.92204575, 24.707596976859207], [48.92146435, 24.709228498798232], [48.922760600000004, 24.710386782734794], [48.9225472, 24.711958145308923], [48.9219341, 24.711929999957647], [48.92045915, 24.71140497158828], [48.920613349999996, 24.710417220387374], [48.9210229, 24.708368841645978], [48.9209238, 24.7064285], [48.9196846, 24.6898171], [48.9105664, 24.694355795742858], [48.9099957, 24.7038129], [48.9104248, 24.7066861], [48.9101514, 24.7079084], [48.8878879, 24.7106709], [48.918237149999996, 24.717949795571524], [48.9168679, 24.732904773269105], [48.9172664, 24.733847118421604], [48.9254035, 24.7238028]],
+                {"bubblingMouseEvents": true, "color": "#c62828", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#c62828", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_025f67889f0a9d809fb6823a59734ba1);
+        
+    
+            poly_line_737a8cbdaeefc70eb668857ac62b81e0.bindTooltip(
+                `<div>
+                     найкращий: мурахи + 2-opt — 20.20 км
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_025f67889f0a9d809fb6823a59734ba1.addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var marker_695984b5e4a43c20ca9d2fd95ebc53c9 = L.marker(
+                [48.927210900000006, 24.722572038802227],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_b5ee0d90eeeb50c044b09a9639450453 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e1\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_695984b5e4a43c20ca9d2fd95ebc53c9.bindTooltip(
+                `<div>
+                     1. Міська поліклініка №5 (у ЛР5 — 1-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_695984b5e4a43c20ca9d2fd95ebc53c9.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_695984b5e4a43c20ca9d2fd95ebc53c9.setIcon(div_icon_b5ee0d90eeeb50c044b09a9639450453);
+            
+    
+            var marker_a1868e80c2d90d5fe7a9790bba544bea = L.marker(
+                [48.9287851, 24.723429400000008],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_404cb8ce7e596f45a4f464647e4b1df3 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e2\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_a1868e80c2d90d5fe7a9790bba544bea.bindTooltip(
+                `<div>
+                     2. Церква святого Йосифа Обручника (у ЛР5 — 2-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a1868e80c2d90d5fe7a9790bba544bea.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a1868e80c2d90d5fe7a9790bba544bea.setIcon(div_icon_404cb8ce7e596f45a4f464647e4b1df3);
+            
+    
+            var marker_4b59e3db2866d4f1c0f006ff93a9bfcb = L.marker(
+                [48.930422, 24.72652116368613],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_4e742f518b51a33a1763f77edd25c05a = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e3\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_4b59e3db2866d4f1c0f006ff93a9bfcb.bindTooltip(
+                `<div>
+                     3. Костел Христа Царя (у ЛР5 — 3-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4b59e3db2866d4f1c0f006ff93a9bfcb.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4b59e3db2866d4f1c0f006ff93a9bfcb.setIcon(div_icon_4e742f518b51a33a1763f77edd25c05a);
+            
+    
+            var marker_2a0a18e7547067dcb26b4319118d5d11 = L.marker(
+                [48.928336, 24.7183089],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_10346e30a3108b2911fbbaacd98343b6 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e4\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_2a0a18e7547067dcb26b4319118d5d11.bindTooltip(
+                `<div>
+                     4. Музей визвольної боротьби (у ЛР5 — 4-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_2a0a18e7547067dcb26b4319118d5d11.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_2a0a18e7547067dcb26b4319118d5d11.setIcon(div_icon_10346e30a3108b2911fbbaacd98343b6);
+            
+    
+            var marker_f615f5c32fc99a9cd922fa8821febd01 = L.marker(
+                [48.92522525, 24.71708840751262],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_8925704ca83eef69cdf0e1a681fe559b = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e5\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_f615f5c32fc99a9cd922fa8821febd01.bindTooltip(
+                `<div>
+                     5. Свято-Троїцький Кафедральний собор (у ЛР5 — 5-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f615f5c32fc99a9cd922fa8821febd01.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f615f5c32fc99a9cd922fa8821febd01.setIcon(div_icon_8925704ca83eef69cdf0e1a681fe559b);
+            
+    
+            var marker_dc4b56b1360c789a0d2f174c03944692 = L.marker(
+                [48.9255152, 24.7190915],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_32f2f464af7e05356efcd879bc5f287e = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e6\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_dc4b56b1360c789a0d2f174c03944692.bindTooltip(
+                `<div>
+                     6. Пам'ятник столиці ЗУНР (у ЛР5 — 6-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_dc4b56b1360c789a0d2f174c03944692.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_dc4b56b1360c789a0d2f174c03944692.setIcon(div_icon_32f2f464af7e05356efcd879bc5f287e);
+            
+    
+            var marker_8c9f437130d3e2ee59fcd3a06cd85c2b = L.marker(
+                [48.924425299999996, 24.714955143636363],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_65f0d069bc782467f395225c7a6ac505 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e7\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_8c9f437130d3e2ee59fcd3a06cd85c2b.bindTooltip(
+                `<div>
+                     7. Вознесіння Христове (у ЛР5 — 7-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8c9f437130d3e2ee59fcd3a06cd85c2b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8c9f437130d3e2ee59fcd3a06cd85c2b.setIcon(div_icon_65f0d069bc782467f395225c7a6ac505);
+            
+    
+            var marker_a842120523e7786df1f80f93cd3dedc5 = L.marker(
+                [48.9243842, 24.713532261623342],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_f3f5a3de663c23e30bca197af0987d5e = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e8\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_a842120523e7786df1f80f93cd3dedc5.bindTooltip(
+                `<div>
+                     8. Палац Потоцьких (у ЛР5 — 8-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a842120523e7786df1f80f93cd3dedc5.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a842120523e7786df1f80f93cd3dedc5.setIcon(div_icon_f3f5a3de663c23e30bca197af0987d5e);
+            
+    
+            var marker_5f226cbac21d93a460097ebbfcd3c7fe = L.marker(
+                [48.9237568, 24.7091282],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_4a6c86459c6ef29e0d386955801208e4 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e9\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_5f226cbac21d93a460097ebbfcd3c7fe.bindTooltip(
+                `<div>
+                     9. Музей мистецтв Прикарпаття (у ЛР5 — 9-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5f226cbac21d93a460097ebbfcd3c7fe.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5f226cbac21d93a460097ebbfcd3c7fe.setIcon(div_icon_4a6c86459c6ef29e0d386955801208e4);
+            
+    
+            var marker_b2ef793e654f47ac931ab7855a322dcf = L.marker(
+                [48.9230813, 24.7087003],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_f9eb7fd601963714742c7a97b27c414a = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e10\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_b2ef793e654f47ac931ab7855a322dcf.bindTooltip(
+                `<div>
+                     10. Анатомічний музей (у ЛР5 — 10-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b2ef793e654f47ac931ab7855a322dcf.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b2ef793e654f47ac931ab7855a322dcf.setIcon(div_icon_f9eb7fd601963714742c7a97b27c414a);
+            
+    
+            var marker_43e271447e8030403f7be530d0aae92e = L.marker(
+                [48.9226307, 24.707142396560847],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_65a65126559f6d6e499c492e877d60da = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e11\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_43e271447e8030403f7be530d0aae92e.bindTooltip(
+                `<div>
+                     11. Бастіон Станіславівської фортеці (у ЛР5 — 11-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_43e271447e8030403f7be530d0aae92e.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_43e271447e8030403f7be530d0aae92e.setIcon(div_icon_65a65126559f6d6e499c492e877d60da);
+            
+    
+            var marker_96d7576908b31a7fb14717e7c9b6503b = L.marker(
+                [48.9224295, 24.70855894496515],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_3cf26d91b382610f0fd80f0855dc467d = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e12\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_96d7576908b31a7fb14717e7c9b6503b.bindTooltip(
+                `<div>
+                     12. Архикатедральний Собор Святого Воскресіння (у ЛР5 — 12-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_96d7576908b31a7fb14717e7c9b6503b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_96d7576908b31a7fb14717e7c9b6503b.setIcon(div_icon_3cf26d91b382610f0fd80f0855dc467d);
+            
+    
+            var marker_94864668a695c91d19f9fca168767e1f = L.marker(
+                [48.92204575, 24.707596976859207],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_f3350d67766b71439b2ef3d647da508c = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e13\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_94864668a695c91d19f9fca168767e1f.bindTooltip(
+                `<div>
+                     13. Корпус теоретичних наук ІФНМУ (у ЛР5 — 13-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_94864668a695c91d19f9fca168767e1f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_94864668a695c91d19f9fca168767e1f.setIcon(div_icon_f3350d67766b71439b2ef3d647da508c);
+            
+    
+            var marker_9164d4f1abc1295a729b5df620bc53b7 = L.marker(
+                [48.92146435, 24.709228498798232],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_5f2345bb5e5c5fba1fdfbdbcfd58f7af = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e14\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_9164d4f1abc1295a729b5df620bc53b7.bindTooltip(
+                `<div>
+                     14. Центральний корпус ІФНМУ (у ЛР5 — 19-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_9164d4f1abc1295a729b5df620bc53b7.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_9164d4f1abc1295a729b5df620bc53b7.setIcon(div_icon_5f2345bb5e5c5fba1fdfbdbcfd58f7af);
+            
+    
+            var marker_3159ac0a6c4398ccf4fce5e932728418 = L.marker(
+                [48.922760600000004, 24.710386782734794],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_f697906cab50e4689e28f04681f89116 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e15\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_3159ac0a6c4398ccf4fce5e932728418.bindTooltip(
+                `<div>
+                     15. Ратуша (у ЛР5 — 14-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_3159ac0a6c4398ccf4fce5e932728418.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_3159ac0a6c4398ccf4fce5e932728418.setIcon(div_icon_f697906cab50e4689e28f04681f89116);
+            
+    
+            var marker_d09ac5b1ce882190bb48b58fb4424eec = L.marker(
+                [48.9225472, 24.711958145308923],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_88e83d387d2fb91e5b9252d269fc0b6e = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e16\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_d09ac5b1ce882190bb48b58fb4424eec.bindTooltip(
+                `<div>
+                     16. Катедральний Собор Покрови Пресвятої Богородиці (у ЛР5 — 15-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_d09ac5b1ce882190bb48b58fb4424eec.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_d09ac5b1ce882190bb48b58fb4424eec.setIcon(div_icon_88e83d387d2fb91e5b9252d269fc0b6e);
+            
+    
+            var marker_17b64304c6c394eef020365ab79b7b82 = L.marker(
+                [48.9219341, 24.711929999957647],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_c1630568e7a1099075c4de7ad1b52458 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e17\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_17b64304c6c394eef020365ab79b7b82.bindTooltip(
+                `<div>
+                     17. Синагога Темпель (у ЛР5 — 16-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_17b64304c6c394eef020365ab79b7b82.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_17b64304c6c394eef020365ab79b7b82.setIcon(div_icon_c1630568e7a1099075c4de7ad1b52458);
+            
+    
+            var marker_aea677e669f98588cd13cefca3d86acd = L.marker(
+                [48.92045915, 24.71140497158828],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_ab4bea7e3e47aed0562a639a2f74443c = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e18\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_aea677e669f98588cd13cefca3d86acd.bindTooltip(
+                `<div>
+                     18. Фізіологічний корпус ІФНМУ (у ЛР5 — 17-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_aea677e669f98588cd13cefca3d86acd.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_aea677e669f98588cd13cefca3d86acd.setIcon(div_icon_ab4bea7e3e47aed0562a639a2f74443c);
+            
+    
+            var marker_7244b179b538b744c1ed8424be932cb6 = L.marker(
+                [48.920613349999996, 24.710417220387374],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_950bacdaa5f9f874f8f0b7f3aeb7d6b7 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e19\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_7244b179b538b744c1ed8424be932cb6.bindTooltip(
+                `<div>
+                     19. Люм'єр (у ЛР5 — 18-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_7244b179b538b744c1ed8424be932cb6.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_7244b179b538b744c1ed8424be932cb6.setIcon(div_icon_950bacdaa5f9f874f8f0b7f3aeb7d6b7);
+            
+    
+            var marker_826abc13a38b8f306cebab1511fd37d3 = L.marker(
+                [48.9210229, 24.708368841645978],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_c4d2f63d2083df5be9031ea2bb06d4eb = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e20\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_826abc13a38b8f306cebab1511fd37d3.bindTooltip(
+                `<div>
+                     20. Пасаж Гартенбергів (у ЛР5 — 20-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_826abc13a38b8f306cebab1511fd37d3.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_826abc13a38b8f306cebab1511fd37d3.setIcon(div_icon_c4d2f63d2083df5be9031ea2bb06d4eb);
+            
+    
+            var marker_8f14740bf0bd532d77ca50d767ec899c = L.marker(
+                [48.9209238, 24.7064285],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_aff09b0963bab04d2af265f4417405b5 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e21\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_8f14740bf0bd532d77ca50d767ec899c.bindTooltip(
+                `<div>
+                     21. Музей Олекси Довбуша (у ЛР5 — 21-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8f14740bf0bd532d77ca50d767ec899c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8f14740bf0bd532d77ca50d767ec899c.setIcon(div_icon_aff09b0963bab04d2af265f4417405b5);
+            
+    
+            var marker_c1ef601bfc65f414030535a3dcc8e169 = L.marker(
+                [48.9196846, 24.6898171],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_364d5665a3a5cf88100ceb07573ef2b8 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e22\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_c1ef601bfc65f414030535a3dcc8e169.bindTooltip(
+                `<div>
+                     22. Роману Левицькому (у ЛР5 — 22-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_c1ef601bfc65f414030535a3dcc8e169.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_c1ef601bfc65f414030535a3dcc8e169.setIcon(div_icon_364d5665a3a5cf88100ceb07573ef2b8);
+            
+    
+            var marker_5df01ff0126051f7538be44290a28838 = L.marker(
+                [48.9105664, 24.694355795742858],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_8b988af5bc4d5e396065804187d42b4a = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e23\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_5df01ff0126051f7538be44290a28838.bindTooltip(
+                `<div>
+                     23. Палац Ромашканів (у ЛР5 — 23-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5df01ff0126051f7538be44290a28838.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5df01ff0126051f7538be44290a28838.setIcon(div_icon_8b988af5bc4d5e396065804187d42b4a);
+            
+    
+            var marker_99043fccfa4e5b1c902b9124bd4302f5 = L.marker(
+                [48.9099957, 24.7038129],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_9d53e07f03b0823ffd9456587e313b62 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e24\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_99043fccfa4e5b1c902b9124bd4302f5.bindTooltip(
+                `<div>
+                     24. Гармата ЗіС-3 (у ЛР5 — 24-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_99043fccfa4e5b1c902b9124bd4302f5.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_99043fccfa4e5b1c902b9124bd4302f5.setIcon(div_icon_9d53e07f03b0823ffd9456587e313b62);
+            
+    
+            var marker_9477754709ee0b003dfedc05e4ef686f = L.marker(
+                [48.9104248, 24.7066861],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_bd7ad895302b57d21e4882ee52fe2254 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e25\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_9477754709ee0b003dfedc05e4ef686f.bindTooltip(
+                `<div>
+                     25. Дмитро Ломей (у ЛР5 — 25-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_9477754709ee0b003dfedc05e4ef686f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_9477754709ee0b003dfedc05e4ef686f.setIcon(div_icon_bd7ad895302b57d21e4882ee52fe2254);
+            
+    
+            var marker_f607e6cf2c534bc124c5e1c5f3feec29 = L.marker(
+                [48.9101514, 24.7079084],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_7eb32dec76a86d3f80c4bc5453ba5e71 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e26\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_f607e6cf2c534bc124c5e1c5f3feec29.bindTooltip(
+                `<div>
+                     26. Віталій Пономаренко (у ЛР5 — 26-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f607e6cf2c534bc124c5e1c5f3feec29.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f607e6cf2c534bc124c5e1c5f3feec29.setIcon(div_icon_7eb32dec76a86d3f80c4bc5453ba5e71);
+            
+    
+            var marker_330d7f3344df2b299225aa04a9ab3c45 = L.marker(
+                [48.8878879, 24.7106709],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_4575db3c366f7f630857c9dcff0ae8a7 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e27\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_330d7f3344df2b299225aa04a9ab3c45.bindTooltip(
+                `<div>
+                     27. Борцям за волю України (у ЛР5 — 27-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_330d7f3344df2b299225aa04a9ab3c45.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_330d7f3344df2b299225aa04a9ab3c45.setIcon(div_icon_4575db3c366f7f630857c9dcff0ae8a7);
+            
+    
+            var marker_c9fc701b1672443f01faf0433a74c6ae = L.marker(
+                [48.918237149999996, 24.717949795571524],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_576d283709ad7400a868d2ea046a584c = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e28\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_c9fc701b1672443f01faf0433a74c6ae.bindTooltip(
+                `<div>
+                     28. Пам'ятник Іванові Яковичу Франку (у ЛР5 — 28-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_c9fc701b1672443f01faf0433a74c6ae.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_c9fc701b1672443f01faf0433a74c6ae.setIcon(div_icon_576d283709ad7400a868d2ea046a584c);
+            
+    
+            var marker_bc1950777a611faa6de9b9a20aaee868 = L.marker(
+                [48.9168679, 24.732904773269105],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_20032beb5102b865281b6831bf407217 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e29\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_bc1950777a611faa6de9b9a20aaee868.bindTooltip(
+                `<div>
+                     29. Церква Царя Христа (у ЛР5 — 29-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_bc1950777a611faa6de9b9a20aaee868.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_bc1950777a611faa6de9b9a20aaee868.setIcon(div_icon_20032beb5102b865281b6831bf407217);
+            
+    
+            var marker_df0dc0d0a888ab08c5771f8019bc4ea2 = L.marker(
+                [48.9172664, 24.733847118421604],
+                {
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_ef4d26abc460f127076ceac207680541 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#fff;border:2px solid #c62828;border-radius:50%;width:22px;height:22px;line-height:18px;text-align:center;font:bold 11px sans-serif;color:#c62828\"\u003e30\u003c/div\u003e",
+  "iconSize": [22, 22],
+  "iconAnchor": [11, 11],
+  "className": "empty",
+});
+        
+    
+            marker_df0dc0d0a888ab08c5771f8019bc4ea2.bindTooltip(
+                `<div>
+                     30. Церква Християн Віри Євангельської (у ЛР5 — 30-а)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_df0dc0d0a888ab08c5771f8019bc4ea2.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_df0dc0d0a888ab08c5771f8019bc4ea2.setIcon(div_icon_ef4d26abc460f127076ceac207680541);
+            
+    
+            var marker_65e165c7f239823575ce1cb3a7eb11bc = L.marker(
+                [48.9254035, 24.7238028],
+                {
+  "zIndexOffset": 1000,
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+        
+    
+            var div_icon_cfb6a73be930ce2eecb6aa5d46319f35 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#1b7f3a;border:2px solid #fff;border-radius:4px;width:26px;height:26px;line-height:24px;text-align:center;font:bold 14px sans-serif;color:#fff\"\u003eS\u003c/div\u003e",
+  "iconSize": [26, 26],
+  "iconAnchor": [13, 13],
+  "className": "empty",
+});
+        
+    
+            marker_65e165c7f239823575ce1cb3a7eb11bc.bindTooltip(
+                `<div>
+                     старт і фініш: СТАРТ: Івано-Франківськ
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_65e165c7f239823575ce1cb3a7eb11bc.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_65e165c7f239823575ce1cb3a7eb11bc.setIcon(div_icon_cfb6a73be930ce2eecb6aa5d46319f35);
+            
+    
+            var layer_control_4eb80e8b596661ce697aca197f205d89_layers = {
+                base_layers : {
+                },
+                overlays :  {
+                    "\u041b\u04205: 2-opt \u2014 20.29 \u043a\u043c" : feature_group_1845c579de5744040d3d9f942b8b670d,
+                    "\u0413\u0410: \u043d\u0430\u0439\u043a\u0440\u0430\u0449\u0438\u0439 \u0456\u0437 10 \u2014 20.33 \u043a\u043c" : feature_group_1bb5cd154f26102334f8acafcd26b388,
+                    "\u043c\u0443\u0440\u0430\u0445\u0438: \u043d\u0430\u0439\u043a\u0440\u0430\u0449\u0438\u0439 \u0456\u0437 10 \u2014 20.62 \u043a\u043c" : feature_group_8e9221b422b66fa0946ce268a85f72f2,
+                    "\u043d\u0430\u0439\u043a\u0440\u0430\u0449\u0438\u0439: \u043c\u0443\u0440\u0430\u0445\u0438 + 2-opt \u2014 20.20 \u043a\u043c" : feature_group_025f67889f0a9d809fb6823a59734ba1,
+                },
+            };
+            let layer_control_4eb80e8b596661ce697aca197f205d89 = L.control.layers(
+                layer_control_4eb80e8b596661ce697aca197f205d89_layers.base_layers,
+                layer_control_4eb80e8b596661ce697aca197f205d89_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_df10e6c91d80a097ae982013bc03bb56);
+
+        
+    
+            map_df10e6c91d80a097ae982013bc03bb56.fitBounds(
+                [[48.8878879, 24.6898171], [48.930422, 24.733847118421604]],
+                {}
+            );
+        
+</script>
+</html>
